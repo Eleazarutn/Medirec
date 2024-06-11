@@ -17,6 +17,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
+            <span>Agregando título</span>
             <Nav.Link href="#action1">Home</Nav.Link>
             <Nav.Link href="#action2">Link</Nav.Link>
             <NavDropdown title="Link" id="navbarScrollingDropdown">
