@@ -1,93 +1,67 @@
-import React from "react";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
-import Form from "react-bootstrap/Form";
-import Image from "react-bootstrap/Image";
-import Button from "react-bootstrap/Button";
-import Dropdown from "react-bootstrap/Dropdown";
-
-import google from "../assets/image/google.png";
-import facebook from "../assets/image/facebook.png";
-
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Header } from "../ComponentsIndex/Header";
+import Container from "react-bootstrap/esm/Container";
+import { Row, Col } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Axios from 'axios';
 
 export const Login = () => {
+  const [correo, setCorreo] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const UserLogin = (e) => {
+    e.preventDefault();
+
+    Axios.post("http://localhost:3001/LoginUser", {
+      Correo: correo,
+      Contraseña: password
+    }).then((response) => {
+      alert(response.data);
+      navigate('/user'); // Redirige al usuario a /user
+    }).catch((error) => {
+      alert("Correo o contraseña incorrectos");
+      console.error("Hubo un error al autenticar el usuario", error);
+    });
+  }
+
   return (
     <>
-      <Header></Header>
+      <Header />
+      <Container
+        className="d-flex justify-content-center align-items-center p-4"
+        style={{ minHeight: "100vh" }}
+      >
+        <Row className="w-100">
+          <Col xs={12} md={6} className="mx-auto">
+            <h1 className="text-center">Inicia sesión</h1>
+            <Form onSubmit={UserLogin}>
+              <Form.Group className="mb-3" controlId="Correo">
+                <Form.Label>Correo</Form.Label>
+                <Form.Control 
+                  type="email" 
+                  placeholder="Ingresa tu correo" 
+                  value={correo}
+                  onChange={(e) => setCorreo(e.target.value)}
+                />
+              </Form.Group>
 
-      <Container className="d-flex aling-items-center">
-        <Row>
-          {/* Primera columna */}
-          <Col>
-            <Image
-              src="https://images.pexels.com/photos/339620/pexels-photo-339620.jpeg?auto=compress&cs=tinysrgb&w=600"
-              fluid
-            />
-          </Col>
+              <Form.Group className="mb-3" controlId="Contraseña">
+                <Form.Label>Contraseña</Form.Label>
+                <Form.Control 
+                  type="password" 
+                  placeholder="*************"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </Form.Group>
 
-          {/* Segunda Columna */}
-          <Col>
-            {/* Primera fila */}
-            <Row>
-              <h1>Hola Buenos Días</h1>
-              <h2>Iniciar sesión con tu cuenta</h2>
-            </Row>
-
-            {/* Inputs */}
-            <FloatingLabel
-              controlId="floatingInput"
-              label="Email address"
-              className="mb-3"
-            >
-              <Form.Control type="email" placeholder="name@example.com" />
-            </FloatingLabel>
-
-            <FloatingLabel controlId="floatingPassword" label="Password">
-              <Form.Control type="password" placeholder="Password" />
-            </FloatingLabel>
-
-            {/* Olvidaste tu con */}
-
-            <Row className="d-flex justify-content-end">
-              <Button variant="link" size="sm">
-                ¿Olvidaste tu contraseña?
+              <Button variant="primary" type="submit" className="p-2" size="sm">
+                Iniciar sesión
               </Button>
-            </Row>
-            <Button variant="primary" size="sm">
-              Iniciar sesión{" "}
-            </Button>
-            <Button variant="secondary m-1" size="sm">
-              Registrate
-            </Button>
-
-            <hr />
-
-            <div className="d-grid gap-2">
-              <Button variant="outline-primary" size="lg">
-                <div>
-                  <Row>
-                    <Col>
-                      <Image src={google} fluid />
-                    </Col>
-                    <Col> Iniciar Sesión con Google</Col>
-                  </Row>
-                </div>
-              </Button>
-
-              <Button variant="outline-primary" size="lg">
-                <div>
-                  <Row>
-                    <Col>
-                      <Image src={facebook} fluid />
-                    </Col>
-                    <Col> Iniciar Sesión con Google</Col>
-                  </Row>
-                </div>
-              </Button>
-            </div>
+            </Form>
           </Col>
         </Row>
       </Container>

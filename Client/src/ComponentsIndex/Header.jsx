@@ -31,7 +31,7 @@ const HeaderButtons = () => {
 
         <Button
           variant="warning"
-          href="/login"
+          href="/register"
           className="d-flex align-items-center"
         >
           Registrate
@@ -40,6 +40,15 @@ const HeaderButtons = () => {
     )
   );
 };
+
+const ForgotPass = ()=>{
+
+    return (
+      location.pathname === '/register' &&(
+        <><p>¿Ya tienes una cuenta?</p> <p><a href="/login" style={{marginLeft:'5px'}}>Inicia sesión aqui</a></p></>
+      )
+    )
+}
 
 export const Header = () => {
   return (
@@ -67,6 +76,7 @@ export const Header = () => {
           </Nav>
 
           <HeaderButtons></HeaderButtons>
+          <ForgotPass></ForgotPass>
 
         </Navbar.Collapse>
       </Container>

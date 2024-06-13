@@ -1,7 +1,10 @@
 import express from 'express'
 import cors from 'cors'
 import mysql from 'mysql'
-import {GetEmpleados} from './JavaScript/ConsultaEjemplo.js'
+import { UserRegister } from './JavaScript/UserRegister.js'
+
+import { UserAuthentication } from './JavaScript/ValiLogin.js'
+
 
 const app = express();
 app.use(cors());
@@ -11,12 +14,13 @@ const db = mysql.createConnection({
     host:"localhost",
     user:"root",
     password:"",
-    database:"empleados_crud"
+    database:"reactmedirec"
 });
 
 
-GetEmpleados(app, db);
 
+UserRegister(app,db)
+UserAuthentication(app,db)
 
 
 app.listen(3001,()=>{
