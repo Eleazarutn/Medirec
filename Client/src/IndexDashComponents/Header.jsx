@@ -6,11 +6,11 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Image from "react-bootstrap/Image";
 
-import MedirecLogo from "../assets/image/MedirecLogo.jpg";
-import LoginIcon from "../assets/image/LoginIcon.png";
+import MedirecLogo from "../../assets/image/MedirecLogo.jpg";
+import LoginIcon from "../../assets/image/LoginIcon.png";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Login } from "../SinglePagesOutComp/Login";
+import { Login } from "../AccessComponents/Login";
 
 import { useLocation } from "react-router-dom";
 
@@ -68,9 +68,9 @@ export const Header = () => {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Nav.Link href="#action1">Servicios</Nav.Link>
-            <Nav.Link href="#action2">Farmacia</Nav.Link>
-            <Nav.Link href="#action2">Soluciones</Nav.Link>
+            <Nav.Link href="/#action1">Servicios</Nav.Link>
+            <Nav.Link href="/#action2">Farmacia</Nav.Link>
+            <Nav.Link href="/#action2">Soluciones</Nav.Link>
             <Nav.Link href="#action2">¿Como agendar?</Nav.Link>
             <Nav.Link href="#action2">Equipo Medico</Nav.Link>
           </Nav>

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Header } from "../ComponentsIndex/Header";
+
+import { Header } from "../IndexDashComponents/Header";
+
 import Container from "react-bootstrap/esm/Container";
 import { Row, Col } from "react-bootstrap";
 import Button from "react-bootstrap/Button";

@@ -4,14 +4,14 @@ import { Row, Col, Container } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 
-import ImgConsultaMedica from "../assets/image/ConsultaMedica.jpg";
-import ImgConsultaMedicaPer from "../assets/image/ConsultaMedicaPer.jpg";
-import ImgServiciosYCuidados from "../assets/image/ServiciosYCuidados.jpg";
-import ImgPagoLinea from '../assets/image/PagoLinea.jpg';
-import ImgFarmacia from '../assets/image/Farmacia.jpg';
-import ImgDoctores from '../assets/image/Doctores.jpg';
+import ImgConsultaMedica from "../../assets/image/ConsultaMedica.jpg";
+import ImgConsultaMedicaPer from "../../assets/image/ConsultaMedicaPer.jpg";
+import ImgServiciosYCuidados from "../../assets/image/ServiciosYCuidados.jpg";
+import ImgPagoLinea from '../../assets/image/PagoLinea.jpg';
+import ImgFarmacia from '../../assets/image/Farmacia.jpg';
+import ImgDoctores from '../../assets/image/Doctores.jpg';
 
-import { IndexDashCard } from "../Components/ServicesDashj";
+import { IndexDashCard } from "./CardServicesDashboard";
 
 export const ServicesDashBoard = () => {
 

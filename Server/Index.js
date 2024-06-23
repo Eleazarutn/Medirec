@@ -4,6 +4,9 @@ import mysql from 'mysql'
 import { UserRegister } from './JavaScript/UserRegister.js'
 
 import { UserAuthentication } from './JavaScript/ValiLogin.js'
+import { GetUsers } from './JavaScript/Getusers.js'
+import { DeleteUser } from './JavaScript/DeleteUsers.js'
+import { EditUser } from './JavaScript/EditUser.js'
 
 
 const app = express();
@@ -21,7 +24,9 @@ const db = mysql.createConnection({
 
 UserRegister(app,db)
 UserAuthentication(app,db)
-
+GetUsers(app,db);
+DeleteUser(app,db);
+EditUser(app,db)
 
 app.listen(3001,()=>{
     console.log("Corriendo en el puerto 3001");

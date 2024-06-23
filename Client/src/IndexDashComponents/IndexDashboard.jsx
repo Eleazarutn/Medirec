@@ -1,6 +1,6 @@
 import React from 'react'
-import { Header } from './Header'
-import { DashBoard } from './DashBoard'
+import { Header } from '../IndexDashComponents/Header'
+import { DashBoard } from '../IndexDashComponents/DashBoard'
 import { ServicesDashBoard } from './ServicesDashBoard'
 
 export const IndexDashboard = () => {

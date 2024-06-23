@@ -1,8 +1,8 @@
 import React from "react";
 import { Row, Col, Container } from "react-bootstrap";
 import { Button } from "react-bootstrap";
-import GiftIcon from "../assets/image/GiftIcon.png";
-import UserIcon from "../assets/image/UserIcon.png";
+import GiftIcon from "../../assets/image/GiftIcon.png";
+import UserIcon from "../../assets/image/UserIcon.png";
 
 export const DashBoard = () => {
   return (
