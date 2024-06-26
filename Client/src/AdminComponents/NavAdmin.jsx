@@ -1,22 +1,85 @@
-import Container from "react-bootstrap/Container";
-import Navbar from "react-bootstrap/Navbar";
+import React, { useState } from "react";
+import { Container, Navbar, Image, Nav, Row, Offcanvas, Button, ButtonGroup, Dropdown } from "react-bootstrap";
+import axios from "axios";
+import jsPDF from "jspdf";
+import 'jspdf-autotable';
 import MenuIcon from "../../assets/image/MenuIcon.png";
-import { Image, Nav, Row } from "react-bootstrap";
-import Offcanvas from "react-bootstrap/Offcanvas";
-import { useState } from "react";
 import MedirecLogo from "../../assets/image/MedirecLogo.jpg";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import Dropdown from 'react-bootstrap/Dropdown';
-
+import { SearchNavAdmin } from "./SearchNavAdmin";
 
 export const NavAdmin = () => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const generateDoctorsPDF = () => {
+    axios.get("http://localhost:3001/GetAllDoctors")
+      .then((response) => {
+        const doctors = response.data;
+        const doc = new jsPDF();
+        doc.text("Reporte de Doctores", 20, 20);
+
+        const tableColumn = ["ID", "Nombre", "Apellidos", "Turno", "Teléfono", "Estado", "Colonia", "Calle", "Número", "Especialidad"];
+        const tableRows = [];
+
+        doctors.forEach(doctor => {
+          const doctorData = [
+            doctor.id_doctor,
+            doctor.doc_nombre,
+            doctor.doc_apellidos,
+            doctor.doc_turno,
+            doctor.doc_telefono,
+            doctor.doc_estado,
+            doctor.doc_colonia,
+            doctor.doc_calle,
+            doctor.doc_numero_calle,
+            doctor.doc_especialidad
+          ];
+          tableRows.push(doctorData);
+        });
+
+        doc.autoTable(tableColumn, tableRows, { startY: 30 });
+        doc.save("Reporte_Doctores.pdf");
+      })
+      .catch((error) => {
+        console.error("Error al obtener los doctores", error);
+      });
+  };
+
+  const generateUsersPDF = () => {
+    axios.get("http://localhost:3001/GetAllUsers")
+      .then((response) => {
+        const users = response.data;
+        const doc = new jsPDF();
+        doc.text("Reporte de Usuarios", 20, 20);
+
+        const tableColumn = ["ID", "Nombre", "Apellidos", "Edad", "Teléfono", "Estado", "Colonia", "Calle", "Alergias", "Email"];
+        const tableRows = [];
+
+        users.forEach(user => {
+          const userData = [
+            user.id_usuario,
+            user.usa_nombre,
+            user.usa_apellidos,
+            user.usa_edad,
+            user.usa_telefono,
+            user.usa_estado,
+            user.usa_colonia,
+            user.usa_calle,
+            user.usa_alergias,
+            user.usa_email
+          ];
+          tableRows.push(userData);
+        });
+
+        doc.autoTable(tableColumn, tableRows, { startY: 30 });
+        doc.save("Reporte_Usuarios.pdf");
+      })
+      .catch((error) => {
+        console.error("Error al obtener los usuarios", error);
+      });
+  };
 
   return (
     <>
@@ -32,7 +95,6 @@ export const NavAdmin = () => {
                 onClick={handleShow}
               />
             </Navbar.Brand>
-
             <Navbar.Toggle aria-controls="navbarScroll" />
             <Nav
               className="me-auto my-2 my-lg-0"
@@ -43,15 +105,7 @@ export const NavAdmin = () => {
                 <Image src={MedirecLogo} style={{ maxHeight: "40px" }} />
               </Nav.Link>
             </Nav>
-            <Form className="d-flex">
-              <Form.Control
-                type="search"
-                placeholder="Buscar"
-                className="me-2"
-                aria-label="Search"
-              />
-              <Button variant="outline-success">Buscar</Button>
-            </Form>
+            <SearchNavAdmin />
           </Container>
         </Navbar>
       </Container>
@@ -73,8 +127,7 @@ export const NavAdmin = () => {
 
               <Dropdown.Menu>
                 <Dropdown.Item href="/adminUsers">Administrar Pacientes</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Genera Informes</Dropdown.Item>
-                <Dropdown.Item href="#/action-3"></Dropdown.Item>
+                <Dropdown.Item onClick={generateUsersPDF}>Generar informe general usuarios</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </Row>
@@ -89,9 +142,25 @@ export const NavAdmin = () => {
               />
 
               <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">Administrar Doctores</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Chat Doctor</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Notificar Doctor</Dropdown.Item>
+                <Dropdown.Item href="/adminDoctors">Administrar Doctores</Dropdown.Item>
+                <Dropdown.Item onClick={generateDoctorsPDF}>Generar informe general doctores</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </Row>
+
+          <Row className="p-1">
+            <Dropdown as={ButtonGroup}>
+              <Button variant="success">Productos</Button>
+
+              <Dropdown.Toggle
+                split
+                variant="success"
+                id="dropdown-split-basic"
+              />
+
+              <Dropdown.Menu>
+                <Dropdown.Item href="/adminProducts">Stock de productos</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">Ventas</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </Row>
